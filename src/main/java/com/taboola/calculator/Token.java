@@ -33,6 +33,13 @@ public class Token {
         this.isPrefix = isPrefix;
         this.associatedVariable = associatedVariable;
     }
+    public Token(String value, boolean isUnary, boolean isPrefix, String associatedVariable){
+        this.type = Type.OPERATOR;
+        this.value = value;
+        this.isUnary = isUnary;
+        this.isPrefix = isPrefix;
+        this.associatedVariable = associatedVariable;
+    }
 
     public Type getType() {
         return type;

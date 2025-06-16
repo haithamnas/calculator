@@ -11,14 +11,14 @@ public class Tokenizer {
     public static final String BINARY_OPS = "[+\\-*/]";
     public static final String PARENTHESIS = "[()]";
     public static final String WHITESPACE_PATTERN  = "\\s+";
-
+    public static final String COMMA  = ",";
     private static final Pattern TOKEN_PATTERN = Pattern.compile(
-            String.format("(%s|%s|%s|%s|%s)", VARIABLE_NAME_PATTERN, NUMBER, UNARY_OPS, BINARY_OPS, PARENTHESIS)
+            String.format("(%s|%s|%s|%s|%s|%S)", Pattern.quote(COMMA),VARIABLE_NAME_PATTERN, NUMBER, UNARY_OPS, BINARY_OPS, PARENTHESIS)
     );
 
 
     public static List<Token> tokenize(String expr) {
-        expr = expr.replaceAll(WHITESPACE_PATTERN , "");
+        expr = expr.replaceAll(WHITESPACE_PATTERN , COMMA);
         List<Token> tokens = new ArrayList<>();
         Matcher matcher = TOKEN_PATTERN.matcher(expr);
         int lastIndex = 0;
@@ -29,11 +29,12 @@ public class Tokenizer {
                 // There's an unmatched part in the expression
                 throw new IllegalArgumentException("Unknown token: " + expr.substring(lastIndex, matcher.start()));
             }
-            rawTokens.add(matcher.group());
-            //String match = matcher.group();
-            //Token.Type type = determineType(match);
-
-            //tokens.add(new Token(type, match));
+            String token = matcher.group();
+            if (COMMA.equals(token)) {
+                lastIndex = matcher.end() ;
+                continue; // skip commas
+            }
+            rawTokens.add(token);
             lastIndex = matcher.end() ;
         }
 
@@ -69,7 +70,6 @@ public class Tokenizer {
 
     private static Token.Type determineType(String token) {
         if (token.matches(NUMBER)) return Token.Type.NUMBER;
-      //  if (token.matches(UNARY_OPS)) return Token.Type.OPERATOR;
         if (token.matches(VARIABLE_NAME_PATTERN)) return Token.Type.VARIABLE;
         if (Operator.isOperator(token)) return Token.Type.OPERATOR;
         if (token.matches(PARENTHESIS)) return Token.Type.PARENTHESIS;
