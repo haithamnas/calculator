@@ -2,17 +2,8 @@ package com.taboola.calculator;
 
 public class Token {
 
-    public enum Type {
-        NUMBER,
-        VARIABLE,
-        OPERATOR,
-        PARENTHESIS
-    }
-
     private final Type type;
     private final String value;
-
-
     // For operator type only
     private final boolean isUnary;
     private final boolean isPrefix;

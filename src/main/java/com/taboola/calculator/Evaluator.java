@@ -3,7 +3,6 @@ package com.taboola.calculator;
 import java.util.Deque;
 import java.util.ArrayDeque;
 import java.util.List;
-import java.util.Optional;
 
 public class Evaluator {
     private final VariableStore variableStore;

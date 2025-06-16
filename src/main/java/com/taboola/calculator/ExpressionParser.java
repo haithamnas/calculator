@@ -19,7 +19,7 @@ public class ExpressionParser {
                     // Only add variable if it's not already handled as part of a postfix unary op
                     boolean isPostfixUnary = (
                             i + 1 < tokens.size() &&
-                                    tokens.get(i + 1).getType() == Token.Type.OPERATOR &&
+                                    tokens.get(i + 1).getType() == Type.OPERATOR &&
                                     tokens.get(i + 1).isUnary() &&
                                     !tokens.get(i + 1).isPrefix() &&
                                     tokens.get(i + 1).getAssociatedVariable().equals(token.getValue())
@@ -31,7 +31,7 @@ public class ExpressionParser {
                 }
                 case OPERATOR -> {
                     Operator currOp = Operator.fromSymbol(token.getValue());
-                    while (!ops.isEmpty() && ops.peek().getType() == Token.Type.OPERATOR) {
+                    while (!ops.isEmpty() && ops.peek().getType() == Type.OPERATOR) {
                         Operator topOp = Operator.fromSymbol(ops.peek().getValue());
                         if (topOp.getPrecedence() >= currOp.getPrecedence()) {
                             output.add(ops.pop());

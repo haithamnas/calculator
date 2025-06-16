@@ -54,25 +54,25 @@ public class Tokenizer {
 
             // Handle postfix unary (x++)
             else if (current.matches(VARIABLE_NAME_PATTERN) && i + 1 < rawTokens.size() && rawTokens.get(i + 1).matches(UNARY_OPS)) {
-                tokens.add(new Token(Token.Type.VARIABLE, current)); // Add variable
+                tokens.add(new Token(Type.VARIABLE, current)); // Add variable
                 tokens.add(new Token(rawTokens.get(i + 1), false, current)); // Add postfix operator
                 i++; // Skip the next token (already processed)
             }
 
             // Fallback: default behavior
             else {
-                Token.Type type = determineType(current);
+                Type type = determineType(current);
                 tokens.add(new Token(type, current));
             }
         }
         return tokens;
     }
 
-    private static Token.Type determineType(String token) {
-        if (token.matches(NUMBER)) return Token.Type.NUMBER;
-        if (token.matches(VARIABLE_NAME_PATTERN)) return Token.Type.VARIABLE;
-        if (Operator.isOperator(token)) return Token.Type.OPERATOR;
-        if (token.matches(PARENTHESIS)) return Token.Type.PARENTHESIS;
+    private static Type determineType(String token) {
+        if (token.matches(NUMBER)) return Type.NUMBER;
+        if (token.matches(VARIABLE_NAME_PATTERN)) return Type.VARIABLE;
+        if (Operator.isOperator(token)) return Type.OPERATOR;
+        if (token.matches(PARENTHESIS)) return Type.PARENTHESIS;
         throw new IllegalArgumentException("Unknown token: " + token);
     }
 }

@@ -12,7 +12,7 @@ class TokenizerTest {
     void testTokenizeSingleNumber() {
         List<Token> tokens = Tokenizer.tokenize("42");
         assertEquals(1, tokens.size());
-        assertEquals(Token.Type.NUMBER, tokens.get(0).getType());
+        assertEquals(Type.NUMBER, tokens.get(0).getType());
         assertEquals("42", tokens.get(0).getValue());
     }
 
@@ -20,7 +20,7 @@ class TokenizerTest {
     void testTokenizeVariable() {
         List<Token> tokens = Tokenizer.tokenize("myVar");
         assertEquals(1, tokens.size());
-        assertEquals(Token.Type.VARIABLE, tokens.get(0).getType());
+        assertEquals(Type.VARIABLE, tokens.get(0).getType());
         assertEquals("myVar", tokens.get(0).getValue());
     }
 
@@ -28,18 +28,18 @@ class TokenizerTest {
     void testTokenizeSimpleExpression() {
         List<Token> tokens = Tokenizer.tokenize("x + 5");
         assertEquals(3, tokens.size());
-        assertEquals(Token.Type.VARIABLE, tokens.get(0).getType());
-        assertEquals(Token.Type.OPERATOR, tokens.get(1).getType());
-        assertEquals(Token.Type.NUMBER, tokens.get(2).getType());
+        assertEquals(Type.VARIABLE, tokens.get(0).getType());
+        assertEquals(Type.OPERATOR, tokens.get(1).getType());
+        assertEquals(Type.NUMBER, tokens.get(2).getType());
     }
 
     @Test
     void testTokenizeParentheses() {
         List<Token> tokens = Tokenizer.tokenize("(x + 2)");
         assertEquals(5, tokens.size());
-        assertEquals(Token.Type.PARENTHESIS, tokens.get(0).getType());
+        assertEquals(Type.PARENTHESIS, tokens.get(0).getType());
         assertEquals("(", tokens.get(0).getValue());
-        assertEquals(Token.Type.PARENTHESIS, tokens.get(4).getType());
+        assertEquals(Type.PARENTHESIS, tokens.get(4).getType());
         assertEquals(")", tokens.get(4).getValue());
     }
 
@@ -50,7 +50,7 @@ class TokenizerTest {
         assertEquals("i", tokens.get(0).getValue());
         assertEquals("++", tokens.get(1).getValue());
         assertEquals("i", tokens.get(1).getAssociatedVariable());
-        assertEquals(Token.Type.OPERATOR, tokens.get(1).getType());
+        assertEquals(Type.OPERATOR, tokens.get(1).getType());
 
     }
 

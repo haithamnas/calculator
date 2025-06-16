@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.taboola.calculator.Token.Type.*;
+import static com.taboola.calculator.Type.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExpressionParserTest {
@@ -83,10 +83,10 @@ class ExpressionParserTest {
         List<Token> output = ExpressionParser.infixToPostfix(input);
 
         assertEquals(List.of(
-                new Token(Token.Type.VARIABLE, "x"),
-                new Token(Token.Type.VARIABLE, "y"),
+                new Token(Type.VARIABLE, "x"),
+                new Token(Type.VARIABLE, "y"),
                 new Token(OPERATOR, "*"),
-                new Token(Token.Type.VARIABLE, "z"),
+                new Token(Type.VARIABLE, "z"),
                 new Token(OPERATOR, "+")
         ), output);
     }
