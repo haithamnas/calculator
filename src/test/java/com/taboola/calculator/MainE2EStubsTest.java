@@ -193,4 +193,43 @@ class MainE2EStubsTest {
         assertTrue(output.contains("b=3"), "Expected b to be incremented");
         assertTrue(output.contains("c=4"), "Expected c to be decremented");
     }
-}
+
+    @Test
+    void expressionUsingZeroShouldSucceed() throws Exception {
+        String output = tapSystemOut(() ->
+                withTextFromSystemIn("x = 0", "y = 5", "z = x + y", "")
+                        .execute(() -> Main.main(new String[0]))
+        );
+
+        assertTrue(output.contains("x=0"));
+        assertTrue(output.contains("y=5"));
+        assertTrue(output.contains("z=5"));
+    }
+
+    @Test
+    void expressionMultiplyingByZeroShouldSucceed() throws Exception {
+        String output = tapSystemOut(() ->
+                withTextFromSystemIn("x = 7", "z = x * 0", "")
+                        .execute(() -> Main.main(new String[0]))
+        );
+
+        assertTrue(output.contains("x=7"));
+        assertTrue(output.contains("z=0"));
+    }
+
+    @Test
+    void divisionByZeroShouldFail() throws Exception {
+        String output = tapSystemOut(() ->
+                withTextFromSystemIn("x = 0", "z = 5 / x", "")
+                        .execute(() -> {
+                            try {
+                                Main.main(new String[0]);
+                            } catch (ArithmeticException e) {
+                                System.out.println("ERROR: Division by zero");
+                            }
+                        })
+        );
+
+        assertTrue(output.contains("Error processing 'z = 5 / x': / by zero"));
+    }
+    }

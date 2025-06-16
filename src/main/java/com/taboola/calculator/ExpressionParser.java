@@ -49,7 +49,7 @@ public class ExpressionParser {
                     Operator currentOperator = Operator.fromSymbol(currentToken.getValue());
                     while (!operatorStack.isEmpty() && operatorStack.peek().getType() == TokenType.OPERATOR) {
                         Operator topOperator = Operator.fromSymbol(operatorStack.peek().getValue());
-                        if (topOperator.getPrecedence() >= currentOperator.getPrecedence()) {
+                        if (topOperator != null && topOperator.getPrecedence() >= currentOperator.getPrecedence()) {
                             Token popped = operatorStack.pop();
                             postfixOutput.add(popped);
                             logger.debug("Popped operator from stack to output: {}", popped.getValue());
