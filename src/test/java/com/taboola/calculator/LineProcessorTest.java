@@ -69,7 +69,7 @@ public class LineProcessorTest {
         assertEquals(-3, variableStore.get("x"));
     }
     @Test
-    void testPlusAssignmen2t() {
+    void testPlusAssignmentWithParenthesis() {
         //variableStore.set("x", 10);
         processor.processLine("x= (6- 3)*3");
         assertEquals(9, variableStore.get("x"));

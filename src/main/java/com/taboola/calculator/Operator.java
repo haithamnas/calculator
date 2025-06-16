@@ -97,4 +97,8 @@ public enum Operator {
     public static boolean isOperator(String token) {
         return fromSymbol(token) != null;
     }
+
+    public  String getSymbol() {
+        return symbol;
+    }
 }

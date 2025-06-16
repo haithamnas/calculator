@@ -19,9 +19,9 @@ public class EvaluatorTest {
     @Test
     public void testSimpleAddition() {
         List<Token> postfix = List.of(
-                new Token(Type.NUMBER, "3"),
-                new Token(Type.NUMBER, "5"),
-                new Token(Type.OPERATOR, "+")
+                new Token(TokenType.NUMBER, "3"),
+                new Token(TokenType.NUMBER, "5"),
+                new Token(TokenType.OPERATOR, "+")
         );
         int result = evaluator.evaluate(postfix);
         assertEquals(8, result);
@@ -32,9 +32,9 @@ public class EvaluatorTest {
         variableStore.set("x", 10);
         variableStore.set("y", 20);
         List<Token> postfix = List.of(
-                new Token(Type.VARIABLE, "x"),
-                new Token(Type.VARIABLE, "y"),
-                new Token(Type.OPERATOR, "+")
+                new Token(TokenType.VARIABLE, "x"),
+                new Token(TokenType.VARIABLE, "y"),
+                new Token(TokenType.OPERATOR, "+")
         );
         int result = evaluator.evaluate(postfix);
         assertEquals(30, result);
@@ -67,11 +67,11 @@ public class EvaluatorTest {
         variableStore.set("a", 4);
         variableStore.set("b", 3);
         List<Token> postfix = List.of(
-                new Token(Type.VARIABLE, "a"),
-                new Token(Type.VARIABLE, "b"),
-                new Token(Type.OPERATOR, "*"),
-                new Token(Type.NUMBER, "2"),
-                new Token(Type.OPERATOR, "+")
+                new Token(TokenType.VARIABLE, "a"),
+                new Token(TokenType.VARIABLE, "b"),
+                new Token(TokenType.OPERATOR, "*"),
+                new Token(TokenType.NUMBER, "2"),
+                new Token(TokenType.OPERATOR, "+")
         );
         int result = evaluator.evaluate(postfix); // (4 * 3) + 2 = 14
         assertEquals(14, result);

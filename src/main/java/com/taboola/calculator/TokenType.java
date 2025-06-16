@@ -1,6 +1,6 @@
 package com.taboola.calculator;
 
-public enum Type {
+public enum TokenType {
     NUMBER,
     VARIABLE,
     OPERATOR,

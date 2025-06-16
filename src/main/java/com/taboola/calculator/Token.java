@@ -2,48 +2,41 @@ package com.taboola.calculator;
 
 public class Token {
 
-    private final Type type;
+    private final TokenType tokenType;
     private final String value;
     // For operator type only
     private final boolean isUnary;
     private final boolean isPrefix;
     private final String associatedVariable; // Only for unary ops like ++i or i++
 
-    public Token(Type type, String text) {
-        this(type, text, false, false, null);
+    public Token(TokenType tokenType, String text) {
+        this(tokenType, text, false, false, null);
     }
 
     public Token(String operatorSymbol, boolean isPrefix, String associatedVariable) {
-        this(Type.OPERATOR, operatorSymbol, true, isPrefix, associatedVariable);
+        this(TokenType.OPERATOR, operatorSymbol, true, isPrefix, associatedVariable);
     }
 
-    private Token(Type type, String value, boolean isUnary, boolean isPrefix, String associatedVariable) {
-        this.type = type;
+    Token(TokenType tokenType, String value, boolean isUnary, boolean isPrefix, String associatedVariable) {
+        this.tokenType = tokenType;
         this.value = value;
         this.isUnary = isUnary;
         this.isPrefix = isPrefix;
         this.associatedVariable = associatedVariable;
     }
 
-    public Type getType() {
-        return type;
+    public TokenType getType() {
+        return tokenType;
     }
 
     public String getValue() {
         return value;
     }
 
-    public boolean isVariable() {
-        return type == Type.VARIABLE;
-    }
-
-    public boolean isOperator() {
-        return type == Type.OPERATOR;
-    }
-
     public boolean isUnary() {
         return isUnary;
     }
+
     public boolean isPrefix() {
         return isUnary && isPrefix;
     }
@@ -55,10 +48,10 @@ public class Token {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Token{type=").append(type);
+        sb.append("Token{type=").append(tokenType);
         sb.append(", value='").append(value).append('\'');
 
-        if (type == Type.OPERATOR) {
+        if (tokenType == TokenType.OPERATOR) {
             sb.append(", isUnary=").append(isUnary);
             if (isUnary) {
                 sb.append(", isPrefix=").append(isPrefix);
@@ -76,12 +69,12 @@ public class Token {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof Token other)) return false;
-        return this.type == other.type && this.value.equals(other.value);
+        return this.tokenType == other.tokenType && this.value.equals(other.value);
     }
 
     @Override
     public int hashCode() {
-        return type.hashCode() * 31 + value.hashCode();
+        return tokenType.hashCode() * 31 + value.hashCode();
     }
 }
 
