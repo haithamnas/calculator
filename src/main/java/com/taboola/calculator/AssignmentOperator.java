@@ -14,7 +14,7 @@ public enum AssignmentOperator {
     /**
      * Addition assignment: x += y ⇒ adds y to x and assigns the result to x.
      */
-    PLUS_ASSIGN("+=", (a, b) -> a + b),
+    PLUS_ASSIGN("+=", Integer::sum),
 
     /**
      * Subtraction assignment: x -= y ⇒ subtracts y from x and assigns the result to x.
