@@ -16,14 +16,8 @@ public class Main {
         log.info("Press Enter on an empty line quit.");
         while (true) {
             String line;
-            if (!scanner.hasNextLine()) {
-                log.info("No input found. Quitting.");
-                break;
-            }
-
-            line = scanner.nextLine();
-            if (line.isBlank()) {
-                log.info("Line is blank. Quitting.");
+            if (!scanner.hasNextLine() || (line = scanner.nextLine()).isBlank()) {
+                log.info("No input or blank line. Quitting.");
                 break;
             }
             try {

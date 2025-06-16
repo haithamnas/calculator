@@ -12,6 +12,7 @@ public class LineProcessor {
     private final VariableStore variableStore;
     private final Evaluator evaluator;
     private static final Logger log = LoggerFactory.getLogger(LineProcessor.class);
+    private record ParsedLine(String variable, AssignmentOperator operator, String expression) {}
 
     public LineProcessor(VariableStore variableStore) {
         this.variableStore = variableStore;
@@ -21,20 +22,20 @@ public class LineProcessor {
     public void processLine(String input) {
         input = input.trim();
 
-        ParsedLine parsed = parseLine(input);
-        if (parsed == null) {
+        ParsedLine parsedLine = parseLine(input);
+        if (parsedLine == null) {
             int result = evaluateExpression(input);
             System.out.println(result);
             return;
         }
 
-        validateVariableName(parsed.variable());
+        validateVariableName(parsedLine.variable());
 
-        int rhsValue = evaluateExpression(parsed.expression());
-        int currentValue = variableStore.getOrDefault(parsed.variable(), 0);
+        int expressionValue = evaluateExpression(parsedLine.expression());
+        int currentVariableValue = variableStore.getOrDefault(parsedLine.variable(), 0);
 
-        int newValue = parsed.operator().apply(currentValue, rhsValue);
-        variableStore.set(parsed.variable(), newValue);
+        int newVariableValue = parsedLine.operator().apply(currentVariableValue, expressionValue);
+        variableStore.set(parsedLine.variable(), newVariableValue);
     }
 
 
@@ -66,6 +67,4 @@ public class LineProcessor {
         List<Token> postfix = ExpressionParser.infixToPostfix(tokens);
         return evaluator.evaluate(postfix);
     }
-
-    private record ParsedLine(String variable, AssignmentOperator operator, String expression) {}
 }
