@@ -54,15 +54,15 @@ class TokenizerTest {
 
     }
 
-//    @Test
-//    void testTokenizeUnaryOperators() {
-//        List<Token> tokens = Tokenizer.tokenize("++i --j");
-//        assertEquals(4, tokens.size());
-//        assertEquals("++", tokens.get(0).getValue());
-//        assertEquals(Token.Type.OPERATOR, tokens.get(0).getType());
-//        assertEquals("i", tokens.get(1).getValue());
-//        assertEquals("j", tokens.get(3).getValue());
-//    }
+    @Test
+    void testTokenizeUnaryOperators() {
+        List<Token> tokens = Tokenizer.tokenize("++i --j");
+        assertEquals(2, tokens.size());
+        assertEquals("++", tokens.get(0).getValue());
+        assertEquals(Type.OPERATOR, tokens.get(0).getType());
+        assertEquals("i", tokens.get(0).getAssociatedVariable());
+        assertEquals("j", tokens.get(1).getAssociatedVariable());
+    }
 
     @Test
     void testTokenizeMixedExpression() {
@@ -76,9 +76,8 @@ class TokenizerTest {
 
     @Test
     void testInvalidToken() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            Tokenizer.tokenize("x # y");
-        });
+        Exception exception = assertThrows(IllegalArgumentException.class,
+                () -> Tokenizer.tokenize("x # y"));
         assertTrue(exception.getMessage().contains("Unknown token"));
     }
 }

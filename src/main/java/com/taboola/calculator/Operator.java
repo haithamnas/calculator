@@ -1,8 +1,4 @@
 package com.taboola.calculator;
-
-import java.util.Arrays;
-import java.util.Optional;
-
 /**
  * Represents a math operator (+, -, *, /)
  * Each operator has:
@@ -23,7 +19,7 @@ public enum Operator {
             return a - b;
         }
     },
-    MULT("*", 2, false) {
+    MULTIPLY("*", 2, false) {
         @Override
         public int apply(int a, int b) {
             return a * b;
@@ -46,7 +42,7 @@ public enum Operator {
         public int applyUnary(int a) {
             return a - 1;
         }
-    };;
+    };
 
     private final String symbol;
     private final int precedence;
@@ -81,10 +77,6 @@ public enum Operator {
         throw new UnsupportedOperationException("Operator " + symbol + " does not support unary apply()");
     }
 
-    public String getSymbol() {
-        return symbol;
-    }
-
     public int getPrecedence() {
         return precedence;
     }
@@ -104,10 +96,5 @@ public enum Operator {
 
     public static boolean isOperator(String token) {
         return fromSymbol(token) != null;
-    }
-
-    public static boolean isUnaryOperator(String token) {
-        Operator op = fromSymbol(token);
-        return op != null && op.isUnary();
     }
 }

@@ -3,6 +3,7 @@ package com.taboola.calculator;
 import java.util.Deque;
 import java.util.ArrayDeque;
 import java.util.List;
+import java.util.Objects;
 
 public class Evaluator {
     private final VariableStore variableStore;
@@ -19,7 +20,7 @@ public class Evaluator {
                 case NUMBER -> stack.push(Integer.parseInt(token.getValue()));
                 case VARIABLE -> stack.push(variableStore.get(token.getValue()));
                 case OPERATOR -> {
-                    Operator op = Operator.fromSymbol(token.getValue());
+                    Operator op = Objects.requireNonNull(Operator.fromSymbol(token.getValue()));
                     if (op.isUnary()) {
                         String varName = token.getAssociatedVariable();
                         int oldVal = variableStore.get(varName);

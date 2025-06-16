@@ -1,8 +1,4 @@
 package com.taboola.calculator;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -11,7 +7,6 @@ import static com.taboola.calculator.Tokenizer.VARIABLE_NAME_PATTERN;
 public class LineProcessor {
     private final VariableStore variableStore;
     private final Evaluator evaluator;
-    private static final Logger log = LoggerFactory.getLogger(LineProcessor.class);
     private record ParsedLine(String variable, AssignmentOperator operator, String expression) {}
 
     public LineProcessor(VariableStore variableStore) {

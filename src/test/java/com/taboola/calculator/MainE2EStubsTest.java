@@ -47,6 +47,20 @@ class MainE2EStubsTest {
     }
 
     @Test
+    void multipleAssignmentsAndUpdates2() throws Exception {
+        String output = tapSystemOut(() ->
+                withTextFromSystemIn("i = 0", "j = ++i", "x = i++ + ++j","y = 5 + 3 * 10","i += y")
+                        //withTextFromSystemIn("i = 0", "j = ++i","")
+                        .execute(() -> Main.main(new String[0]))
+        );
+
+        assertTrue(output.contains("j=2"), "Should contain initial assignment");
+        assertTrue(output.contains("i=37"), "Should contain second assignment");
+        assertTrue(output.contains("x=3"), "Should contain updated value");
+        assertTrue(output.contains("y=35"), "Should contain updated value");
+    }
+
+    @Test
     void multipleAssignmentsAndUpdates3() throws Exception {
         String output = tapSystemOut(() ->
                 withTextFromSystemIn("x = 2", "y = 5", "x += y", "")

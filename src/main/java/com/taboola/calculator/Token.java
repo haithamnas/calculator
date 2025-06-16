@@ -7,7 +7,7 @@ public class Token {
     // For operator type only
     private final boolean isUnary;
     private final boolean isPrefix;
-    private String associatedVariable; // Only for unary ops like ++i or i++
+    private final String associatedVariable; // Only for unary ops like ++i or i++
 
     public Token(Type type, String text) {
         this(type, text, false, false, null);
@@ -24,13 +24,6 @@ public class Token {
         this.isPrefix = isPrefix;
         this.associatedVariable = associatedVariable;
     }
-    public Token(String value, boolean isUnary, boolean isPrefix, String associatedVariable){
-        this.type = Type.OPERATOR;
-        this.value = value;
-        this.isUnary = isUnary;
-        this.isPrefix = isPrefix;
-        this.associatedVariable = associatedVariable;
-    }
 
     public Type getType() {
         return type;
@@ -38,10 +31,6 @@ public class Token {
 
     public String getValue() {
         return value;
-    }
-
-    public boolean isNumber() {
-        return type == Type.NUMBER;
     }
 
     public boolean isVariable() {
@@ -52,10 +41,6 @@ public class Token {
         return type == Type.OPERATOR;
     }
 
-    public boolean isParenthesis() {
-        return type == Type.PARENTHESIS;
-    }
-
     public boolean isUnary() {
         return isUnary;
     }
@@ -63,22 +48,8 @@ public class Token {
         return isUnary && isPrefix;
     }
 
-    public boolean isPostfix() {
-        return isUnary && !isPrefix;
-    }
-    public void setAssociatedVariable(String varName) {
-        this.associatedVariable = varName;
-    }
-
     public String getAssociatedVariable() {
         return associatedVariable;
-    }
-    public boolean isLeftParenthesis() {
-        return isParenthesis() && "(".equals(value);
-    }
-
-    public boolean isRightParenthesis() {
-        return isParenthesis() && ")".equals(value);
     }
 
     @Override
@@ -104,8 +75,7 @@ public class Token {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Token)) return false;
-        Token other = (Token) obj;
+        if (!(obj instanceof Token other)) return false;
         return this.type == other.type && this.value.equals(other.value);
     }
 

@@ -1,7 +1,5 @@
 package com.taboola.calculator;
 
-import java.util.List;
-
 public class CalculatorApp {
     private final VariableStore variableStore = new VariableStore();
     private final LineProcessor processor = new LineProcessor(variableStore);

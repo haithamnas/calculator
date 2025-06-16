@@ -18,14 +18,6 @@ public class VariableStore {
         return variables.getOrDefault(var, defaultValue);
     }
 
-    public void increment(String var) {
-        variables.put(var, get(var) + 1);
-    }
-
-    public void decrement(String var) {
-        variables.put(var, get(var) - 1);
-    }
-
     @Override
     public String toString() {
         return variables.toString();
